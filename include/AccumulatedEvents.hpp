@@ -1,0 +1,29 @@
+#include <iostream>
+#include <image_transport/image_transport.h>
+#include <cv_bridge/cv_bridge.h>
+#include <sensor_msgs/image_encodings.h>
+#include "sensor_msgs/Image.h"
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <dvs_msgs/EventArray.h>
+#include <dvs_msgs/Event.h>
+
+
+class AccumulatedEvents
+{
+  public:
+  ros::NodeHandle nh_;
+  ros::Subscriber sub;
+  image_transport::ImageTransport it_;
+  image_transport::Publisher pub;
+  cv::Mat EventsImage;
+  sensor_msgs::Image img_msg;
+  int i = 0;
+ 
+  const std::string OPENCV_WINDOW = "Image window";
+
+  AccumulatedEvents(ros::NodeHandle &);
+  ~AccumulatedEvents();
+
+  void Events(dvs_msgs::EventArray msg);
+};
