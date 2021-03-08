@@ -24,7 +24,7 @@ class vs_events
     ros::NodeHandle nh_;
     typedef message_filters::sync_policies::ApproximateTime<geometry_msgs::PoseStamped,geometry_msgs::QuaternionStamped,geometry_msgs::PoseStamped> sync_poilicy;
     message_filters::Synchronizer<sync_poilicy> *sync;
-    message_filters::Subscriber<geometry_msgs::PoseStamped> *image1_sub;
+    message_filters::Subscriber<geometry_msgs::PoseStamped> *point_sub;
     message_filters::Subscriber<geometry_msgs::QuaternionStamped> *attitude_sub;
     message_filters::Subscriber<geometry_msgs::PoseStamped> *pose_sub;
     ros::Publisher drone_pose, drone_position_with_offset, all_pose;
