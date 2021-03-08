@@ -26,10 +26,6 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
     threshold = 10000.0;
     
-    f_c=616.5;  //TODO: Change to events camera fc
-    // p_drone_camera.x = -0.038;
-    // p_drone_camera.y = 0.1308;
-    // p_drone_camera.z = -0.1137;
 }
 
 KeypointsDetection::~KeypointsDetection()
