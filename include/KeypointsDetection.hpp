@@ -34,5 +34,5 @@ class KeypointsDetection
   KeypointsDetection(ros::NodeHandle &);
   ~KeypointsDetection();
 
- void findCenter(cv::Mat* EventsImage);
+ void findCenter(cv::Mat*, ros::Time);
 };

@@ -25,7 +25,7 @@ void AccumulatedEvents::Events(dvs_msgs::EventArray msg)
     ros::Time start = first_event.ts;
     ros::Time end = last_event.ts;
      
-    ros::Time packet_avg_time = start + (end - start) *0.5; 
+    packet_avg_time = start + (end - start) *0.5; 
     for (int i = 0; i < msg.events.size(); i++)
     {
         cv::circle(EventsImage, cv::Point(msg.events[i].x, msg.events[i].y), 0.5, cv::Scalar(255, 0, 0), -1, 8);

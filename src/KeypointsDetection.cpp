@@ -37,7 +37,7 @@ KeypointsDetection::~KeypointsDetection()
     cv::destroyWindow(OPENCV_WINDOW);
 }
 
-void KeypointsDetection::findCenter(cv::Mat* EventsImage)
+void KeypointsDetection::findCenter(cv::Mat* EventsImage, ros::Time EventImageTime)
 {   
     if(EventsImage->empty())
     {
@@ -72,6 +72,7 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage)
         
         pixel_pos.point.x = center_point.x-173;
         pixel_pos.point.y = center_point.y-130;
+        pixel_pos.header.stamp = EventImageTime;
 
         geometry_msgs::Point pixel_pub;
         pixel_pub.x=pixel_pos.point.x;
@@ -86,6 +87,7 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage)
 
         pixel_pos.point.x = center_point.x-173;
         pixel_pos.point.y = center_point.y-130;
+        pixel_pos.header.stamp = EventImageTime;
 
       
         pixel_center_location.publish(pixel_pos);

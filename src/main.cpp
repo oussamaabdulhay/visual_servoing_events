@@ -5,6 +5,7 @@
 
 
 
+
 int main(int argc, char** argv)
 {
 
@@ -17,6 +18,7 @@ AccumulatedEvents* visualisation=new AccumulatedEvents(main_nodehandle);
 KeypointsDetection* keypoints_locater=new KeypointsDetection(main_nodehandle);
 
 cv::Mat* eventsImage = &(visualisation->EventsImage);
+ros::Time eventsImageTime = visualisation->packet_avg_time;
 
 
 
@@ -25,7 +27,7 @@ cv::Mat* eventsImage = &(visualisation->EventsImage);
   while (ros::ok())
   {
     r.sleep();
-    keypoints_locater->findCenter(eventsImage);
+    keypoints_locater->findCenter(eventsImage, eventsImageTime);
     ros::spinOnce();
   }
   return 0;

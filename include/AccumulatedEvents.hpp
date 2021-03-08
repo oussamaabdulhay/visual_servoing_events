@@ -19,6 +19,7 @@ class AccumulatedEvents
   cv::Mat EventsImage;
   sensor_msgs::Image img_msg;
   int i = 0;
+  ros::Time packet_avg_time;
  
   const std::string OPENCV_WINDOW = "Image window";
 
