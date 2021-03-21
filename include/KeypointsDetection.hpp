@@ -20,6 +20,7 @@ class KeypointsDetection
   image_transport::ImageTransport it_;
   std::vector<cv::KeyPoint> keypoints;
   cv::SimpleBlobDetector::Params params;
+  float threshold;
   cv::Point2d center_point;
   std::vector<cv::Point2f> list_of_positions;
   ros::Publisher pixel_center_location;

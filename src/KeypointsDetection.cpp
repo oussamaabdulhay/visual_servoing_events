@@ -66,8 +66,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, ros::Time EventImageTi
         center_point.x = list_of_positions.back().x;
         center_point.y = list_of_positions.back().y;
         
-        pixel_pos.point.x = center_point.x-173;
-        pixel_pos.point.y = center_point.y-130;
+        pixel_pos.point.x = center_point.x-101.6122;
+        pixel_pos.point.y = center_point.y-82.40;
         pixel_pos.header.stamp = EventImageTime;
 
         geometry_msgs::Point pixel_pub;
@@ -81,8 +81,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, ros::Time EventImageTi
         std::cout << "standard dev too high\n";
         center_point = filter->getMedian(list_of_positions, center_point);
 
-        pixel_pos.point.x = center_point.x-173;
-        pixel_pos.point.y = center_point.y-130;
+        pixel_pos.point.x = center_point.x-101.6122;
+        pixel_pos.point.y = center_point.y-82.40;
         pixel_pos.header.stamp = EventImageTime;
 
       
