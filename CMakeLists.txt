@@ -28,8 +28,10 @@ FILE(GLOB SOURCE_FILES *.hpp *.cpp *.h
         )
 
 add_executable(visual_servoing_events_node src/main.cpp ${SOURCE_FILES})
+add_executable(CheckDetection_node src/CheckDetection.cpp ${SOURCE_FILES})
 
 target_link_libraries(visual_servoing_events_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(CheckDetection_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 
 

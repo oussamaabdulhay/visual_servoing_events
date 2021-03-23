@@ -7,6 +7,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <dvs_msgs/EventArray.h>
 #include <dvs_msgs/Event.h>
+#include "KeypointsDetection.hpp"
 
 
 class AccumulatedEvents
@@ -17,6 +18,7 @@ class AccumulatedEvents
   image_transport::ImageTransport it_;
   image_transport::Publisher pub;
   cv::Mat EventsImage;
+  KeypointsDetection* keypoints_locater=new KeypointsDetection(nh_);
   sensor_msgs::Image img_msg;
   int i = 0;
   ros::Time packet_avg_time;

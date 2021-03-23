@@ -16,19 +16,20 @@ AccumulatedEvents::~AccumulatedEvents()
 
 void AccumulatedEvents::Events(dvs_msgs::EventArray msg)
 {
-    EventsImage = cv::Mat::zeros(260, 346, CV_8UC1);
+    EventsImage = cv::Mat::zeros(180, 240, CV_8UC1);
     
     cv_bridge::CvImage img_bridge;
     
-    dvs_msgs::Event first_event = msg.events.front();
-    dvs_msgs::Event last_event = msg.events.back();
-    ros::Time start = first_event.ts;
-    ros::Time end = last_event.ts;
+    // dvs_msgs::Event first_event = msg.events.front();
+    // dvs_msgs::Event last_event = msg.events.back();
+    // ros::Time start = first_event.ts;
+    // ros::Time end = last_event.ts;
      
-    packet_avg_time = start + (end - start) *0.5; 
+    packet_avg_time.sec = msg.header.stamp.toSec(); 
+    //std::cout<<msg.header.stamp.nsec<<std::endl;
     for (int i = 0; i < msg.events.size(); i++)
     {
-        cv::circle(EventsImage, cv::Point(msg.events[i].x, msg.events[i].y), 0.5, cv::Scalar(255, 0, 0), -1, 8);
+        cv::circle(EventsImage, cv::Point(msg.events[i].x, msg.events[i].y), 1.0, cv::Scalar(255, 0, 0), -1, 8);
     }
     std_msgs::Header header;
     header.seq = i++;
@@ -36,6 +37,7 @@ void AccumulatedEvents::Events(dvs_msgs::EventArray msg)
     img_bridge=cv_bridge::CvImage(header, sensor_msgs::image_encodings::MONO8, EventsImage);
     img_bridge.toImageMsg(img_msg);
     pub.publish(img_msg);
+    keypoints_locater->findCenter(&EventsImage, packet_avg_time);
    
     cv::imshow("EventsImage", EventsImage);
     cv::waitKey(1);   

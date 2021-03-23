@@ -27,6 +27,9 @@ class KeypointsDetection
   medianFilter* filter=new medianFilter();
   geometry_msgs::PointStamped pixel_pos;
   cv::Mat blurred,im_with_keypoints;
+  void saveImage(cv::Mat&);
+  std::string Path = "/home/osama/noDetectionFrames/frame";
+  int imageIndex = 0;
 
 
   const std::string OPENCV_WINDOW = "Image window";
