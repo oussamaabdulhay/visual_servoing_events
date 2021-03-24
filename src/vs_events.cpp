@@ -12,7 +12,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     sync = new message_filters::Synchronizer<sync_poilicy>(sync_poilicy(10),*point_sub, *attitude_sub, *pose_sub); //8
     sync->registerCallback(boost::bind(&vs_events::ImageProcess, this, _1, _2, _3)); 
 
-    drone_pose = nh_.advertise<geometry_msgs::Point>("/vs_position", 1);
+    drone_pose = nh_.advertise<geometry_msgs::PointStamped>("/vs_position", 1);
     drone_position_with_offset = nh_.advertise<geometry_msgs::Point>("/drone_position_with_offset", 1);
     all_pose = nh_.advertise<geometry_msgs::Pose>("/pose", 1);
 
@@ -100,7 +100,7 @@ Vector3D<float> vs_events::get_object_location(Vector3D<float> rotated_pixel_vec
     object_location.y= depth;
     object_location.z=(rotated_pixel_vector.z * depth) / rotated_pixel_vector.y;
 
-    geometry_msgs::Point object_pos;
+    geometry_msgs::PointStamped object_pos;
     object_pos.x= -1 * object_location.x;
     object_pos.y= -1 * object_location.y;
     object_pos.z= object_location.z;
