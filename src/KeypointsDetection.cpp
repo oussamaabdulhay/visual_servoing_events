@@ -8,12 +8,12 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
 
     params.filterByArea = true;
-    params.minArea = 400;
-    params.maxArea = 1000;
+    params.minArea = 500;
+    params.maxArea = 1200;
 
     // Filter by Circularity
     params.filterByCircularity = true;
-    params.minCircularity = 0.7;
+    params.minCircularity = 0.6;
 
     // Filter by Convexity
     params.filterByConvexity = false;
@@ -71,8 +71,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
         center_point.x = keypoints[0].pt.x;
         center_point.y = keypoints[0].pt.y;
         
-        pixel_pos.point.x = center_point.x-104.9;
-        pixel_pos.point.y = center_point.y-91.3;
+        pixel_pos.point.x = center_point.x-105.8;
+        pixel_pos.point.y = center_point.y-92.3;
         pixel_pos.point.z = 0;
         pixel_pos.header = EventImageHeader;
 
