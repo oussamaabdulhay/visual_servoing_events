@@ -4,17 +4,16 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 {
 
     nh_ = t_nh;
-    pixel_center_location = nh_.advertise<geometry_msgs::PointStamped>("/center_position", 1);
+    pixel_center_location = nh_.advertise<geometry_msgs::PoseStamped>("/center_position", 10);
 
-    cv::namedWindow(OPENCV_WINDOW);
 
     params.filterByArea = true;
-    params.minArea = 700;
-    params.maxArea = 2000;
+    params.minArea = 400;
+    params.maxArea = 1000;
 
     // Filter by Circularity
     params.filterByCircularity = true;
-    params.minCircularity = 0.6;
+    params.minCircularity = 0.7;
 
     // Filter by Convexity
     params.filterByConvexity = false;
@@ -30,10 +29,9 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
 KeypointsDetection::~KeypointsDetection()
 {
-    cv::destroyWindow(OPENCV_WINDOW);
 }
 
-void KeypointsDetection::findCenter(cv::Mat* EventsImage, ros::Time EventImageTime)
+void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header EventImageHeader)
 {   
     if(EventsImage->empty())
     {
@@ -41,7 +39,7 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, ros::Time EventImageTi
     }
     else
     {
-    cv::GaussianBlur(*EventsImage, blurred, cv::Size(7, 7), 0, 0);
+    cv::GaussianBlur(*EventsImage, blurred, cv::Size(7,7 ), 0, 0);
     //cv::medianBlur(*EventsImage, blurred,3);
     // cv::threshold(blurred, blurred, 0,255,cv::THRESH_BINARY );
     cv::Mat element = cv::getStructuringElement(cv::MORPH_ELLIPSE ,cv::Size(9,9) );
@@ -57,7 +55,7 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, ros::Time EventImageTi
     if (keypoints.size() == 0)
     {
     std::cout << "EMPTY KEYPOINTS\n";
-    saveImage(im_with_keypoints);
+    //saveImage(im_with_keypoints);
     }
 
     else
@@ -73,14 +71,12 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, ros::Time EventImageTi
         center_point.x = keypoints[0].pt.x;
         center_point.y = keypoints[0].pt.y;
         
-        pixel_pos.point.x = center_point.x-101.6122;
-        pixel_pos.point.y = center_point.y-82.40;
-        pixel_pos.header.stamp = EventImageTime;
+        pixel_pos.point.x = center_point.x-104.9;
+        pixel_pos.point.y = center_point.y-91.3;
+        pixel_pos.point.z = 0;
+        pixel_pos.header = EventImageHeader;
 
-        geometry_msgs::Point pixel_pub;
-        pixel_pub.x=pixel_pos.point.x;
-        pixel_pub.y=pixel_pos.point.y;
-        
+     
         pixel_center_location.publish(pixel_pos);
     //   }
     //   else
@@ -100,16 +96,16 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, ros::Time EventImageTi
   }
     
   
-    cv::imshow("im_with_keypoints", im_with_keypoints); 
-    cv::waitKey(1);  
+    // cv::imshow("im_with_keypoints", im_with_keypoints); 
+    // cv::waitKey(1);  
 
 }
 }
 
-void KeypointsDetection::saveImage(cv::Mat &img )
-{
-  Path=Path+std::to_string(imageIndex)+ ".jpg";
-  cv::imwrite(Path,img);
-  Path="/home/osama/noDetectionFrames/frame";
-  imageIndex++;
-}
+// void KeypointsDetection::saveImage(cv::Mat &img )
+// {
+//   Path=Path+std::to_string(imageIndex)+ ".jpg";
+//   cv::imwrite(Path,img);
+//   Path="/home/osama/noDetectionFrames/frame";
+//   imageIndex++;
+// }

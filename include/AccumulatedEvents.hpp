@@ -21,12 +21,12 @@ class AccumulatedEvents
   KeypointsDetection* keypoints_locater=new KeypointsDetection(nh_);
   sensor_msgs::Image img_msg;
   int i = 0;
-  ros::Time packet_avg_time;
+  std_msgs::Header packet_header;
  
   const std::string OPENCV_WINDOW = "Image window";
 
   AccumulatedEvents(ros::NodeHandle &);
   ~AccumulatedEvents();
 
-  void Events(dvs_msgs::EventArray msg);
+  void Events(const dvs_msgs::EventArray &);
 };

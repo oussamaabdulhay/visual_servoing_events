@@ -9,8 +9,7 @@
 #include "geometry_msgs/Point.h"
 #include <sstream>
 #include <iostream>
-#include "medianFilter.hpp"
-#include "geometry_msgs/Point.h"
+#include "geometry_msgs/PointStamped.h"
 #include <sys/stat.h>
 #include "RotationMatrix3by3.hpp"
 #include <math.h>
@@ -22,9 +21,9 @@ class vs_events
 {
   public:
     ros::NodeHandle nh_;
-    typedef message_filters::sync_policies::ApproximateTime<geometry_msgs::PoseStamped,geometry_msgs::QuaternionStamped,geometry_msgs::PoseStamped> sync_poilicy;
+    typedef message_filters::sync_policies::ApproximateTime<geometry_msgs::PointStamped,geometry_msgs::QuaternionStamped,geometry_msgs::PoseStamped> sync_poilicy;
     message_filters::Synchronizer<sync_poilicy> *sync;
-    message_filters::Subscriber<geometry_msgs::PoseStamped> *point_sub;
+    message_filters::Subscriber<geometry_msgs::PointStamped> *point_sub;
     message_filters::Subscriber<geometry_msgs::QuaternionStamped> *attitude_sub;
     message_filters::Subscriber<geometry_msgs::PoseStamped> *pose_sub;
     ros::Publisher drone_pose, drone_position_with_offset, all_pose;
@@ -32,7 +31,7 @@ class vs_events
     Vector3D<float> drone_orientation,p_drone_camera,pixel_pos;
     Vector3D<float> pos_data;
 
-    void ImageProcess(const geometry_msgs::PoseStampedConstPtr& ,const geometry_msgs::QuaternionStampedConstPtr&, const geometry_msgs::PoseStampedConstPtr&);    
+    void ImageProcess(const geometry_msgs::PointStampedConstPtr& ,const geometry_msgs::QuaternionStampedConstPtr&, const geometry_msgs::PoseStampedConstPtr&);    
     void rotate_camera_vector(Vector3D<float> );
     void update_rotation_matrices(Vector3D<float>);
     Vector3D<float> rotate_offset();

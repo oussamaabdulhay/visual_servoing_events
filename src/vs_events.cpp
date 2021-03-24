@@ -6,7 +6,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     
       
     nh_=main_nodehandle;
-    point_sub = new message_filters::Subscriber<geometry_msgs::PoseStamped>(nh_, "/center_position", 2); //2 
+    point_sub = new message_filters::Subscriber<geometry_msgs::PointStamped>(nh_, "/center_position", 2); //2 
     attitude_sub = new message_filters::Subscriber<geometry_msgs::QuaternionStamped>(nh_, "/filter/quaternion", 10); //8
     pose_sub = new message_filters::Subscriber<geometry_msgs::PoseStamped>(nh_, "/Robot_1/pose", 10); //8
     sync = new message_filters::Synchronizer<sync_poilicy>(sync_poilicy(10),*point_sub, *attitude_sub, *pose_sub); //8
@@ -17,7 +17,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     all_pose = nh_.advertise<geometry_msgs::Pose>("/pose", 1);
 
 
-    f_c=267.2;
+    f_c=197.5;
     p_drone_camera.x = -0.038;
     p_drone_camera.y = 0.1308;
     p_drone_camera.z = -0.1137;
@@ -29,7 +29,7 @@ vs_events::~vs_events()
 {
 }
 
-void vs_events::ImageProcess(const geometry_msgs::PoseStampedConstPtr& msg, const geometry_msgs::QuaternionStampedConstPtr& attitude, const geometry_msgs::PoseStampedConstPtr& pose)
+void vs_events::ImageProcess(const geometry_msgs::PointStampedConstPtr& msg, const geometry_msgs::QuaternionStampedConstPtr& attitude, const geometry_msgs::PoseStampedConstPtr& pose)
 {
     
     quatToEuler(attitude);
@@ -45,8 +45,8 @@ void vs_events::ImageProcess(const geometry_msgs::PoseStampedConstPtr& msg, cons
 
     all_pose.publish(check);
 
-    pixel_pos.x = msg->pose.position.x;
-    pixel_pos.y = msg->pose.position.y;
+    pixel_pos.x = msg->point.x;
+    pixel_pos.y = msg->point.y;
     rotate_camera_vector(pixel_pos);
 }
 

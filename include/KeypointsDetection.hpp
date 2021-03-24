@@ -10,8 +10,8 @@
 #include <cmath>
 #include "medianFilter.hpp"
 #include "std_msgs/Float32.h"
-#include "geometry_msgs/Point.h"
 #include "geometry_msgs/PointStamped.h"
+#include "geometry_msgs/PoseStamped.h"
 
 class KeypointsDetection
 {
@@ -37,5 +37,5 @@ class KeypointsDetection
   KeypointsDetection(ros::NodeHandle &);
   ~KeypointsDetection();
 
- void findCenter(cv::Mat*, ros::Time);
+ void findCenter(cv::Mat*, std_msgs::Header);
 };
