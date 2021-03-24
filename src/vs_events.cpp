@@ -91,6 +91,7 @@ Vector3D<float> vs_events::rotate_offset()
     return t_results;
 }
 
+
 Vector3D<float> vs_events::get_object_location(Vector3D<float> rotated_pixel_vector)    
 {
 
