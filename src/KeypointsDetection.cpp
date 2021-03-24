@@ -4,7 +4,7 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 {
 
     nh_ = t_nh;
-    pixel_center_location = nh_.advertise<geometry_msgs::PoseStamped>("/center_position", 10);
+    pixel_center_location = nh_.advertise<geometry_msgs::PointStamped>("/center_position", 10);
 
 
     params.filterByArea = true;

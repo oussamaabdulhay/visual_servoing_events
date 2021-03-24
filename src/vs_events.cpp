@@ -57,7 +57,7 @@ void vs_events::rotate_camera_vector(Vector3D<float> pixel_pos)
     Vector3D<float> camera_pixel_vector;
     camera_pixel_vector.x = f_c;
     camera_pixel_vector.y = -1 * pixel_pos.x;
-    camera_pixel_vector.z = -1 * pixel_pos.y;
+    camera_pixel_vector.z = pixel_pos.y;
 
     RotationMatrix3by3 R_d_i;
     Eigen::Matrix<float, 3, 3> R_d_to_i_temp;
@@ -103,7 +103,7 @@ Vector3D<float> vs_events::get_object_location(Vector3D<float> rotated_pixel_vec
     geometry_msgs::Point object_pos;
     object_pos.x= -1 * object_location.x;
     object_pos.y= -1 * object_location.y;
-    object_pos.z= -1 * object_location.z;
+    object_pos.z= object_location.z;
 
     drone_pose.publish(object_pos);
 
@@ -172,7 +172,6 @@ Vector3D<float> vs_events::get_object_location(Vector3D<float> rotated_pixel_vec
     att_data.w = msg_pose->pose.orientation.w;
 
     depth = 3.15 - pos_data.y; //3.15 location of object plane
-
     Vector3D<float> _euler;
     // yaw (z-axis rotation)
     double siny_cosp = +2.0 * (att_data.w * att_data.z + att_data.x * att_data.y);
