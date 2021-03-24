@@ -96,14 +96,14 @@ Vector3D<float> vs_events::get_object_location(Vector3D<float> rotated_pixel_vec
 
     Vector3D<float> object_location;
 
-    object_location.x= (rotated_pixel_vector.x * depth) / rotated_pixel_vector.y;
-    object_location.y= depth;
-    object_location.z=(rotated_pixel_vector.z * depth) / rotated_pixel_vector.y;
+    object_location.x = (rotated_pixel_vector.x * depth) / rotated_pixel_vector.y;
+    object_location.y = depth;
+    object_location.z = (rotated_pixel_vector.z * depth) / rotated_pixel_vector.y;
 
     geometry_msgs::PointStamped object_pos;
-    object_pos.x= -1 * object_location.x;
-    object_pos.y= -1 * object_location.y;
-    object_pos.z= object_location.z;
+    object_pos.point.x = -1 * object_location.x;
+    object_pos.point.y = -1 * object_location.y;
+    object_pos.point.z = object_location.z;
 
     drone_pose.publish(object_pos);
 
@@ -114,9 +114,9 @@ Vector3D<float> vs_events::get_object_location(Vector3D<float> rotated_pixel_vec
     // std::cout<<rotated_offset.z<<std::endl;
 
     geometry_msgs::Point object_pos_with_offset;
-    object_pos_with_offset.x =(object_location.x + rotated_offset.x) * -1; 
-    object_pos_with_offset.y =(object_location.y + rotated_offset.y) * -1;
-    object_pos_with_offset.z =(object_location.z + rotated_offset.z) * -1;
+    object_pos_with_offset.x = (object_location.x + rotated_offset.x) * -1; 
+    object_pos_with_offset.y = (object_location.y + rotated_offset.y) * -1;
+    object_pos_with_offset.z = (object_location.z + rotated_offset.z) * -1;
 
 
     
