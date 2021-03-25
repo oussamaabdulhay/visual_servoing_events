@@ -6,7 +6,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     
       
     nh_=main_nodehandle;
-    point_sub = new message_filters::Subscriber<geometry_msgs::PointStamped>(nh_, "/center_position", 2); //2 
+    point_sub = new message_filters::Subscriber<geometry_msgs::PointStamped>(nh_, "/center_position", 10); //2 
     attitude_sub = new message_filters::Subscriber<geometry_msgs::QuaternionStamped>(nh_, "/filter/quaternion", 10); //8
     pose_sub = new message_filters::Subscriber<geometry_msgs::PoseStamped>(nh_, "/Robot_1/pose", 10); //8
     sync = new message_filters::Synchronizer<sync_poilicy>(sync_poilicy(10),*point_sub, *attitude_sub, *pose_sub); //8
@@ -31,6 +31,7 @@ vs_events::~vs_events()
 
 void vs_events::ImageProcess(const geometry_msgs::PointStampedConstPtr& msg, const geometry_msgs::QuaternionStampedConstPtr& attitude, const geometry_msgs::PoseStampedConstPtr& pose)
 {
+    std::cout<<"IN\n";
     quatToEuler(attitude);
     getDepthYaw(pose);
     geometry_msgs::Pose check;
