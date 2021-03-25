@@ -76,8 +76,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
         pixel_pos.point.z = 0;
         pixel_pos.header = EventImageHeader;
 
-        pixel_pos.point.x = std::trunc(pixel_pos.point.x);
-        pixel_pos.point.y = std::trunc(pixel_pos.point.y);
+        // pixel_pos.point.x = std::trunc(pixel_pos.point.x);
+        // pixel_pos.point.y = std::trunc(pixel_pos.point.y);
 
      
         pixel_center_location.publish(pixel_pos);
