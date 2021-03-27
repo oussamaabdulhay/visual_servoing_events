@@ -8,8 +8,8 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
 
     params.filterByArea = true;
-    params.minArea = 1000;
-    params.maxArea = 2000;
+    params.minArea = 400;
+    params.maxArea = 1000;
 
     // Filter by Circularity
     params.filterByCircularity = true;
@@ -39,9 +39,9 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
     }
     else
     {
-    cv::GaussianBlur(*EventsImage, blurred, cv::Size(7,7 ), 0, 0);
+    cv::GaussianBlur(*EventsImage, blurred, cv::Size(3,3), 0, 0);
     //cv::medianBlur(*EventsImage, blurred,3);
-    // cv::threshold(blurred, blurred, 0,255,cv::THRESH_BINARY );
+    // cv::threshold(blurred, blurred, 0,255,cv::THRESH_BINARY);
     cv::Mat element = cv::getStructuringElement(cv::MORPH_ELLIPSE ,cv::Size(9,9) );
     cv::morphologyEx(blurred, blurred, 3 , element);
     cv::bitwise_not(blurred, blurred);
