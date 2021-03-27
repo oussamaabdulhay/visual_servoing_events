@@ -23,7 +23,7 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
     params.filterByInertia = false;
     params.minInertiaRatio = 0.2;
 
-    threshold = 5.0;
+    threshold = 1.0;
     
 }
 
