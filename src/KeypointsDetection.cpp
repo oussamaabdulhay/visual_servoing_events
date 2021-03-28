@@ -4,12 +4,12 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 {
 
     nh_ = t_nh;
-    pixel_center_location = nh_.advertise<geometry_msgs::PointStamped>("/center_position", 10);
+    pixel_center_location = nh_.advertise<geometry_msgs::PointStamped>("/center_position1", 10);
 
 
     params.filterByArea = true;
-    params.minArea = 400;
-    params.maxArea = 1000;
+    params.minArea = 1000;
+    params.maxArea = 2500;
 
     // Filter by Circularity
     params.filterByCircularity = true;
@@ -23,7 +23,7 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
     params.filterByInertia = false;
     params.minInertiaRatio = 0.2;
 
-    threshold = 0.1;
+    threshold = 10000;
     
 }
 
@@ -39,11 +39,12 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
     }
     else
     {
-    cv::GaussianBlur(*EventsImage, blurred, cv::Size(3,3), 0, 0);
+    //blurred = *EventsImage;
+    cv::GaussianBlur(*EventsImage, blurred, cv::Size(5,5), 0, 0);
     //cv::medianBlur(*EventsImage, blurred,3);
     // cv::threshold(blurred, blurred, 0,255,cv::THRESH_BINARY);
-    cv::Mat element = cv::getStructuringElement(cv::MORPH_ELLIPSE ,cv::Size(9,9) );
-    cv::morphologyEx(blurred, blurred, 3 , element);
+    // cv::Mat element = cv::getStructuringElement(cv::MORPH_ELLIPSE ,cv::Size(9,9) );
+    // cv::morphologyEx(blurred, blurred, 3 , element);
     cv::bitwise_not(blurred, blurred);
     cv::Ptr<cv::SimpleBlobDetector> detector = cv::SimpleBlobDetector::create(params);
     detector->detect(blurred, keypoints);
@@ -71,8 +72,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
         center_point.x = keypoints[0].pt.x;
         center_point.y = keypoints[0].pt.y;
         
-        pixel_pos.point.x = center_point.x-105.8;
-        pixel_pos.point.y = center_point.y-92.3;
+        pixel_pos.point.x = center_point.x-174.4;
+        pixel_pos.point.y = center_point.y-132.9;
         pixel_pos.point.z = 0;
         pixel_pos.header = EventImageHeader;
 

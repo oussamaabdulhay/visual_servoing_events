@@ -16,7 +16,7 @@ AccumulatedEvents::~AccumulatedEvents()
 
 void AccumulatedEvents::Events(const dvs_msgs::EventArray &msg)
 {
-    EventsImage = cv::Mat::zeros(180, 240, CV_8UC1);
+    EventsImage = cv::Mat::zeros(260, 346, CV_8UC1);
     
     //cv_bridge::CvImage img_bridge;
     
