@@ -61,8 +61,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
 
     else
     {
-    float std_dev;
-    list_of_positions.push_back(keypoints[0].pt);
+    //float std_dev;
+    //list_of_positions.push_back(keypoints[0].pt);
 
     //if (list_of_positions.size() == 3)
     //{
