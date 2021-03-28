@@ -8,7 +8,7 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
 
     params.filterByArea = true;
-    params.minArea = 1500;
+    params.minArea = 1000;
     params.maxArea = 2500;
 
     // Filter by Circularity
@@ -64,11 +64,11 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
     float std_dev;
     list_of_positions.push_back(keypoints[0].pt);
 
-    if (list_of_positions.size() == 3)
-    {
-      std_dev = filter->getStdDev(list_of_positions);
-      if (std_dev < threshold)
-      {
+    //if (list_of_positions.size() == 3)
+    //{
+      //std_dev = filter->getStdDev(list_of_positions);
+      //if (std_dev < threshold)
+      //{
         center_point.x = keypoints[0].pt.x;
         center_point.y = keypoints[0].pt.y;
         
@@ -82,19 +82,19 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
 
      
         pixel_center_location.publish(pixel_pos);
-      }
-      else
-       {
-        std::cout << "standard dev too high\n";
-        center_point = filter->getMedian(list_of_positions, center_point);
+      //}
+    //   else
+    //    {
+    //     std::cout << "standard dev too high\n";
+    //     center_point = filter->getMedian(list_of_positions, center_point);
 
-        pixel_pos.point.x = center_point.x-105.8;
-        pixel_pos.point.y = center_point.y-92.3;
-        pixel_pos.point.z = 0;
-        pixel_pos.header = EventImageHeader;
-       }
-    list_of_positions.erase(list_of_positions.begin());
-    }
+    //     pixel_pos.point.x = center_point.x-105.8;
+    //     pixel_pos.point.y = center_point.y-92.3;
+    //     pixel_pos.point.z = 0;
+    //     pixel_pos.header = EventImageHeader;
+    //    }
+    // list_of_positions.erase(list_of_positions.begin());
+    // }
   }
     
   
