@@ -12,7 +12,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     sync = new message_filters::Synchronizer<sync_poilicy>(sync_poilicy(10),*point_sub, *attitude_sub, *pose_sub); //8
     sync->registerCallback(boost::bind(&vs_events::ImageProcess, this, _1, _2, _3)); 
 
-    drone_pose = nh_.advertise<geometry_msgs::PointStamped>("/vs_position", 1);
+    drone_pose = nh_.advertise<geometry_msgs::PointStamped>("/vs_position1", 1);
     drone_position_with_offset = nh_.advertise<geometry_msgs::Point>("/drone_position_with_offset", 1);
     all_pose = nh_.advertise<geometry_msgs::Pose>("/pose", 1);
 
@@ -31,7 +31,7 @@ vs_events::~vs_events()
 
 void vs_events::ImageProcess(const geometry_msgs::PointStampedConstPtr& msg, const geometry_msgs::QuaternionStampedConstPtr& attitude, const geometry_msgs::PoseStampedConstPtr& pose)
 {
-    std::cout<<"IN\n";
+    //std::cout<<"IN\n";
     quatToEuler(attitude);
     getDepthYaw(pose);
     geometry_msgs::Pose check;

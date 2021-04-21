@@ -4,12 +4,12 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 {
 
     nh_ = t_nh;
-    pixel_center_location = nh_.advertise<geometry_msgs::PointStamped>("/center_position", 10);
+    pixel_center_location = nh_.advertise<geometry_msgs::PointStamped>("/center_position1", 10);
 
 
     params.filterByArea = true;
     params.minArea = 1000;
-    params.maxArea = 2500;
+    params.maxArea = 3000;
 
     // Filter by Circularity
     params.filterByCircularity = true;
@@ -17,11 +17,11 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
     // Filter by Convexity
     params.filterByConvexity = false;
-    params.minConvexity = 0.2;
+    params.minConvexity = 0.1;
 
     // Filter by Inertia
     params.filterByInertia = false;
-    params.minInertiaRatio = 0.2;
+    params.minInertiaRatio = 0.1;
 
     threshold = 10000;
     
