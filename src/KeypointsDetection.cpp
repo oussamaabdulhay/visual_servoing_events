@@ -8,8 +8,8 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
 
     params.filterByArea = true;
-    params.minArea = 800;
-    params.maxArea = 1400;
+    params.minArea = 1000;
+    params.maxArea = 2000;
 
     // Filter by Circularity
     params.filterByCircularity = true;
@@ -17,11 +17,11 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
     // Filter by Convexity
     params.filterByConvexity = false;
-    params.minConvexity = 0.2;
+    params.minConvexity = 0.1;
 
     // Filter by Inertia
     params.filterByInertia = false;
-    params.minInertiaRatio = 0.2;
+    params.minInertiaRatio = 0.1;
 
     threshold = 10000;
     
@@ -72,8 +72,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
         center_point.x = keypoints[0].pt.x;
         center_point.y = keypoints[0].pt.y;
         
-        pixel_pos.point.x = center_point.x-172.9;
-        pixel_pos.point.y = center_point.y-143.87;
+        pixel_pos.point.x = center_point.x-175.35;
+        pixel_pos.point.y = center_point.y-133.17;
         pixel_pos.point.z = 0;
         pixel_pos.header = EventImageHeader;
 
@@ -98,8 +98,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
   }
     
   
-    // cv::imshow("im_with_keypoints", im_with_keypoints); 
-    // cv::waitKey(1);  
+    cv::imshow("im_with_keypoints", im_with_keypoints); 
+    cv::waitKey(1);  
 
 }
 }
