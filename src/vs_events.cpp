@@ -20,7 +20,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     f_c=351.54;
     p_drone_camera.x = 0.122; //-0.038;
     p_drone_camera.y = 0.02; //0.1308;
-    p_drone_camera.z = 0.111; //-0.1137;
+    p_drone_camera.z = -0.111; //-0.1137;
 
 
 }
@@ -115,8 +115,8 @@ Vector3D<float> vs_events::get_object_location(Vector3D<float> rotated_pixel_vec
     // std::cout<<rotated_offset.z<<std::endl;
 
     geometry_msgs::Point object_pos_with_offset;
-    object_pos_with_offset.x = (object_location.x + rotated_offset.x) * -1; 
-    object_pos_with_offset.y = (object_location.y + rotated_offset.y) * -1;
+    object_pos_with_offset.x = (object_location.x - rotated_offset.x) * -1; 
+    object_pos_with_offset.y = (object_location.y - rotated_offset.y) * -1;
     object_pos_with_offset.z = (object_location.z + rotated_offset.z);
 
 
