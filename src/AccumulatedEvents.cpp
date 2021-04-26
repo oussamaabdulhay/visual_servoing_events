@@ -39,6 +39,6 @@ void AccumulatedEvents::Events(const dvs_msgs::EventArray &msg)
     //pub.publish(img_msg);
     keypoints_locater->findCenter(&EventsImage, packet_header);
    
-    cv::imshow("EventsImage", EventsImage);
-    cv::waitKey(1);   
+    // cv::imshow("EventsImage", EventsImage);
+    // cv::waitKey(1);   
 }
