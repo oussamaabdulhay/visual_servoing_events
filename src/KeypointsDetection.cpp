@@ -13,15 +13,15 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
     // Filter by Circularity
     params.filterByCircularity = true;
-    params.minCircularity = 0.6;
+    params.minCircularity = 0.5;
 
     // Filter by Convexity
     params.filterByConvexity = false;
-    params.minConvexity = 0.2;
+    params.minConvexity = 0.1;
 
     // Filter by Inertia
     params.filterByInertia = false;
-    params.minInertiaRatio = 0.2;
+    params.minInertiaRatio = 0.1;
 
     threshold = 10000;
     
