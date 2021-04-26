@@ -31,7 +31,7 @@ vs_events::~vs_events()
 
 void vs_events::ImageProcess(const geometry_msgs::PointStampedConstPtr& msg, const geometry_msgs::QuaternionStampedConstPtr& attitude, const geometry_msgs::PoseStampedConstPtr& pose)
 {
-    //std::cout<<"IN\n";
+    std::cout<<"IN\n";
     quatToEuler(attitude);
     getDepthYaw(pose);
     geometry_msgs::Pose check;
