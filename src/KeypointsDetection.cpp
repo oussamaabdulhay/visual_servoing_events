@@ -9,7 +9,7 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
     params.filterByArea = true;
     params.minArea = 400;
-    params.maxArea = 2500;
+    params.maxArea = 4000;
 
     // Filter by Circularity
     params.filterByCircularity = true;
