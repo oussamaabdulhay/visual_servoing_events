@@ -72,8 +72,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
         center_point.x = keypoints[0].pt.x;
         center_point.y = keypoints[0].pt.y;
         
-        pixel_pos.point.x = center_point.x-175.35;
-        pixel_pos.point.y = center_point.y-133.17;
+        pixel_pos.point.x = center_point.x-175.4;
+        pixel_pos.point.y = center_point.y-132.06;
         pixel_pos.point.z = 0;
         pixel_pos.header = EventImageHeader;
 

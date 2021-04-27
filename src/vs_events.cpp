@@ -17,7 +17,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     all_pose = nh_.advertise<geometry_msgs::Pose>("/pose", 1);
 
 
-    f_c=351.54;
+    f_c=355.1;
     p_drone_camera.x = 0.122; //-0.038;
     p_drone_camera.y = 0.02; //0.1308;
     p_drone_camera.z = -0.111; //-0.1137;
