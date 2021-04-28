@@ -27,8 +27,8 @@ class KeypointsDetection
   std::vector<cv::Point2f> list_of_positions;
   ros::Publisher pixel_center_location, pixel_center_location_filtered;
   //medianFilter* filter=new medianFilter();
-  ButterFilter_2nd* filter_x=new ButterFilter_2nd(ButterFilter_2nd::BF_settings::FS100FC30);
-  ButterFilter_2nd* filter_y=new ButterFilter_2nd(ButterFilter_2nd::BF_settings::FS100FC30);
+  ButterFilter_2nd* filter_x=new ButterFilter_2nd(ButterFilter_2nd::BF_settings::FS100FC20);
+  ButterFilter_2nd* filter_y=new ButterFilter_2nd(ButterFilter_2nd::BF_settings::FS100FC20);
   geometry_msgs::PointStamped pixel_pos;
   cv::Mat blurred,im_with_keypoints;
   void saveImage(cv::Mat&);
