@@ -9,7 +9,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     point_sub = new message_filters::Subscriber<geometry_msgs::PointStamped>(nh_, "/center_position_filtered", 100); //2 
     attitude_sub = new message_filters::Subscriber<geometry_msgs::QuaternionStamped>(nh_, "/filter/quaternion", 100); //8
     pose_sub = new message_filters::Subscriber<geometry_msgs::PoseStamped>(nh_, "/Robot_1/pose", 100); //8
-    sync = new message_filters::Synchronizer<sync_poilicy>(sync_poilicy(10),*point_sub, *attitude_sub, *pose_sub); //8
+    sync = new message_filters::Synchronizer<sync_poilicy>(sync_poilicy(100),*point_sub, *attitude_sub, *pose_sub); //8
     sync->registerCallback(boost::bind(&vs_events::ImageProcess, this, _1, _2, _3)); 
 
     drone_pose = nh_.advertise<geometry_msgs::PointStamped>("/vs_position", 1);
