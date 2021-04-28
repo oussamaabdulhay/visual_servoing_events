@@ -17,11 +17,13 @@
   <build_depend>image_transport</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>sensor_msgs</build_depend>
+  <build_depend>hear_architecture</build_depend>
   <build_export_depend>cv_bridge</build_export_depend>
   <build_export_depend>image_transport</build_export_depend>
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>sensor_msgs</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>hear_architecture</build_export_depend>
   <exec_depend>cv_bridge</exec_depend>
   <exec_depend>image_transport</exec_depend>
   <exec_depend>roscpp</exec_depend>
@@ -30,7 +32,7 @@
   <exec_depend>dvs_msgs</exec_depend>
   <exec_depend>eigen_catkin</exec_depend>
   <exec_depend>message_runtime</exec_depend>
-
+  <exec_depend>hear_architecture</exec_depend>
 
  
   <export>

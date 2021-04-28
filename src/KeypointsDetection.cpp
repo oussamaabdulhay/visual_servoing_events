@@ -5,6 +5,7 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
 
     nh_ = t_nh;
     pixel_center_location = nh_.advertise<geometry_msgs::PointStamped>("/center_position", 10);
+    pixel_center_location_filtered = nh_.advertise<geometry_msgs::PointStamped>("/center_position_filtered", 10);
 
 
     params.filterByArea = true;
@@ -39,12 +40,7 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
     }
     else
     {
-    //blurred = *EventsImage;
     cv::GaussianBlur(*EventsImage, blurred, cv::Size(5,5), 0, 0);
-    //cv::medianBlur(*EventsImage, blurred,3);
-    // cv::threshold(blurred, blurred, 0,255,cv::THRESH_BINARY);
-    // cv::Mat element = cv::getStructuringElement(cv::MORPH_ELLIPSE ,cv::Size(9,9) );
-    // cv::morphologyEx(blurred, blurred, 3 , element);
     cv::bitwise_not(blurred, blurred);
     cv::Ptr<cv::SimpleBlobDetector> detector = cv::SimpleBlobDetector::create(params);
     detector->detect(blurred, keypoints);
@@ -61,14 +57,6 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
 
     else
     {
-    //float std_dev;
-    //list_of_positions.push_back(keypoints[0].pt);
-
-    //if (list_of_positions.size() == 3)
-    //{
-      //std_dev = filter->getStdDev(list_of_positions);
-      //if (std_dev < threshold)
-      //{
         center_point.x = keypoints[0].pt.x;
         center_point.y = keypoints[0].pt.y;
         
@@ -76,30 +64,22 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
         pixel_pos.point.y = center_point.y-133.044;
         pixel_pos.point.z = 0;
         pixel_pos.header = EventImageHeader;
-
-        // pixel_pos.point.x = std::trunc(pixel_pos.point.x);
-        // pixel_pos.point.y = std::trunc(pixel_pos.point.y);
-
-     
+    
         pixel_center_location.publish(pixel_pos);
-      //}
-    //   else
-    //    {
-    //     std::cout << "standard dev too high\n";
-    //     center_point = filter->getMedian(list_of_positions, center_point);
 
-    //     pixel_pos.point.x = center_point.x-105.8;
-    //     pixel_pos.point.y = center_point.y-92.3;
-    //     pixel_pos.point.z = 0;
-    //     pixel_pos.header = EventImageHeader;
-    //    }
-    // list_of_positions.erase(list_of_positions.begin());
-    // }
+        geometry_msgs::PointStamped pixel_pos_filtered;
+        pixel_pos_filtered.point.x = filter_x->runTask(pixel_pos.point.x);
+        pixel_pos_filtered.point.y = filter_y->runTask(pixel_pos.point.y);
+        pixel_pos_filtered.point.z = 0;
+
+        pixel_pos_filtered.header = EventImageHeader;
+        
+        pixel_center_location_filtered.publish(pixel_pos_filtered);
   }
     
   
-    // cv::imshow("im_with_keypoints", im_with_keypoints); 
-    // cv::waitKey(1);  
+    cv::imshow("im_with_keypoints", im_with_keypoints); 
+    cv::waitKey(1);  
 
 }
 }

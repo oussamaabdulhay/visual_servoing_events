@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "../visual_servoing_events/**",
-                "/home/osama/events_ws/src/rpg_dvs_ros",
+                "../HEAR_Architecture/include/**",
                 "../../devel/**",
                 "/opt/ros/melodic/include/**"
             ],

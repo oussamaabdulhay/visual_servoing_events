@@ -10,13 +10,14 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   dvs_msgs
   message_generation
+  hear_architecture
 )
 
 find_package(OpenCV REQUIRED)
 
 
 catkin_package(
-INCLUDE_DIRS LIBRARIES rosopencv_t CATKIN_DEPENDS cv_bridge image_transport roscpp sensor_msgs CATKIN_DEPENDS message_runtime std_msgs )
+INCLUDE_DIRS LIBRARIES rosopencv_t CATKIN_DEPENDS hear_architecture cv_bridge image_transport roscpp sensor_msgs CATKIN_DEPENDS message_runtime std_msgs )
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include

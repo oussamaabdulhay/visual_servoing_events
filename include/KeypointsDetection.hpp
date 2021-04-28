@@ -12,6 +12,8 @@
 #include "std_msgs/Float32.h"
 #include "geometry_msgs/PointStamped.h"
 #include "geometry_msgs/PoseStamped.h"
+#include "HEAR_math/ButterFilter_2nd.hpp"
+
 
 class KeypointsDetection
 {
@@ -23,8 +25,10 @@ class KeypointsDetection
   float threshold;
   cv::Point2d center_point;
   std::vector<cv::Point2f> list_of_positions;
-  ros::Publisher pixel_center_location;
-  medianFilter* filter=new medianFilter();
+  ros::Publisher pixel_center_location, pixel_center_location_filtered;
+  //medianFilter* filter=new medianFilter();
+  ButterFilter_2nd* filter_x=new ButterFilter_2nd(ButterFilter_2nd::BF_settings::FS100FC45);
+  ButterFilter_2nd* filter_y=new ButterFilter_2nd(ButterFilter_2nd::BF_settings::FS100FC45);
   geometry_msgs::PointStamped pixel_pos;
   cv::Mat blurred,im_with_keypoints;
   void saveImage(cv::Mat&);
