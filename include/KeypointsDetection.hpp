@@ -22,14 +22,14 @@ class KeypointsDetection
   image_transport::ImageTransport it_;
   std::vector<cv::KeyPoint> keypoints;
   cv::SimpleBlobDetector::Params params;
-  float threshold;
+  float threshold, _dt;
   cv::Point2d center_point;
   std::vector<cv::Point2f> list_of_positions;
-  ros::Publisher pixel_center_location, pixel_center_location_filtered;
+  ros::Publisher pixel_center_location,pixel_center_location_filtered,diff_unfiltered_pub,diff_filtered_pub;
   //medianFilter* filter=new medianFilter();
   ButterFilter_2nd* filter_x=new ButterFilter_2nd(ButterFilter_2nd::BF_settings::FS100FC45);
-  ButterFilter_2nd* filter_y=new ButterFilter_2nd(ButterFilter_2nd::BF_settings::FS100FC45);
-  geometry_msgs::PointStamped pixel_pos;
+  ButterFilter_2nd* filter_y=new ButterFilter_2nd(ButterFilter_2nd::BF_settings::FS100FC30);
+  geometry_msgs::PointStamped pixel_pos, pixel_pos_filtered_prev, pixel_pos_prev;
   cv::Mat blurred,im_with_keypoints;
   void saveImage(cv::Mat&);
   std::string Path = "/home/osama/noDetectionFrames/frame";

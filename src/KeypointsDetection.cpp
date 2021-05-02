@@ -6,6 +6,8 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
     nh_ = t_nh;
     pixel_center_location = nh_.advertise<geometry_msgs::PointStamped>("/center_position", 10);
     pixel_center_location_filtered = nh_.advertise<geometry_msgs::PointStamped>("/center_position_filtered", 10);
+    //diff_unfiltered_pub = nh_.advertise<geometry_msgs::PointStamped>("/diff_unfiltered", 10);
+    //diff_filtered_pub = nh_.advertise<geometry_msgs::PointStamped>("/diff_filtered", 10);
 
 
     params.filterByArea = true;
@@ -25,6 +27,7 @@ KeypointsDetection::KeypointsDetection(ros::NodeHandle &t_nh):it_(nh_)
     params.minInertiaRatio = 0.1;
 
     threshold = 10000;
+    _dt = 1/.100;
     
 }
 
@@ -60,12 +63,21 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
         center_point.x = keypoints[0].pt.x;
         center_point.y = keypoints[0].pt.y;
         
-        pixel_pos.point.x = center_point.x-174.06;
-        pixel_pos.point.y = center_point.y-133.044;
+        pixel_pos.point.x = center_point.x-173.17;
+        pixel_pos.point.y = center_point.y-129.39;
         pixel_pos.point.z = 0;
         pixel_pos.header = EventImageHeader;
     
         pixel_center_location.publish(pixel_pos);
+
+        // float diff_x = (pixel_pos.point.x - pixel_pos_prev.point.x) / _dt;
+        // float diff_y = (pixel_pos.point.y - pixel_pos_prev.point.y) / _dt;
+        // geometry_msgs::PointStamped diff_unfiltered;
+        // diff_unfiltered.point.x = diff_x;
+        // diff_unfiltered.point.y = diff_y;
+        // diff_unfiltered.header = EventImageHeader;
+
+        // diff_unfiltered_pub.publish(diff_unfiltered);
 
         geometry_msgs::PointStamped pixel_pos_filtered;
         pixel_pos_filtered.point.x = filter_x->runTask(pixel_pos.point.x);
@@ -75,6 +87,24 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
         pixel_pos_filtered.header = EventImageHeader;
         
         pixel_center_location_filtered.publish(pixel_pos_filtered);
+
+        // float diff_x_fil = (pixel_pos_filtered.point.x - pixel_pos_filtered_prev.point.x) / _dt;
+        // float diff_y_fil = (pixel_pos_filtered.point.y - pixel_pos_filtered_prev.point.y) / _dt;
+        // geometry_msgs::PointStamped diff_filtered;
+        // diff_filtered.point.x = diff_x_fil;
+        // diff_filtered.point.y = diff_y_fil;
+        // diff_filtered.header = EventImageHeader;
+        
+
+        // diff_filtered_pub.publish(diff_filtered);
+
+        // pixel_pos_prev.point.x = pixel_pos.point.x;
+        // pixel_pos_prev.point.y = pixel_pos.point.y;
+        // pixel_pos_prev.point.z = 0;
+
+        // pixel_pos_filtered_prev.point.x = pixel_pos_filtered.point.x;
+        // pixel_pos_filtered_prev.point.y = pixel_pos_filtered.point.y;
+        // pixel_pos_filtered_prev.point.z = 0;
   }
     
   
