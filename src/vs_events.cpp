@@ -6,7 +6,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     
       
     nh_=main_nodehandle;
-    point_sub = new message_filters::Subscriber<geometry_msgs::PointStamped>(nh_, "/center_position_filtered", 100); //2 
+    point_sub = new message_filters::Subscriber<geometry_msgs::PointStamped>(nh_, "/center_position", 100); //2 
     attitude_sub = new message_filters::Subscriber<geometry_msgs::QuaternionStamped>(nh_, "/filter/quaternion", 100); //8
     pose_sub = new message_filters::Subscriber<geometry_msgs::PoseStamped>(nh_, "/Robot_1/pose", 100); //8
     sync = new message_filters::Synchronizer<sync_poilicy>(sync_poilicy(100),*point_sub, *attitude_sub, *pose_sub); //8
@@ -17,7 +17,7 @@ vs_events::vs_events(ros::NodeHandle &main_nodehandle)
     all_pose = nh_.advertise<geometry_msgs::Pose>("/pose", 1);
 
 
-    f_c=353.03;
+    f_c=351.24;
     p_drone_camera.x = 0.122; //-0.038;
     p_drone_camera.y = 0.02; //0.1308;
     p_drone_camera.z = -0.111; //-0.1137;
