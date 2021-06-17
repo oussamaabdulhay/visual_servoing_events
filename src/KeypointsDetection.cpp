@@ -108,8 +108,8 @@ void KeypointsDetection::findCenter(cv::Mat* EventsImage, std_msgs::Header Event
   }
     
   
-    cv::imshow("im_with_keypoints", im_with_keypoints); 
-    cv::waitKey(1);  
+    // cv::imshow("im_with_keypoints", im_with_keypoints); 
+    // cv::waitKey(1);  
 
 }
 }
