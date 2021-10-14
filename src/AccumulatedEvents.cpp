@@ -6,7 +6,7 @@ AccumulatedEvents::AccumulatedEvents(ros::NodeHandle &t_nh):it_(nh_)
     nh_ = t_nh;
     sub = nh_.subscribe("/dvs/events", 10, &AccumulatedEvents::Events,this);
     //pub=it_.advertise("/EventsImage",1);
-    writer = cv::VideoWriter("size_change.avi", cv::VideoWriter::fourcc('X','V','I','D'), 100,cv::Size(346,260),false );
+    //writer = cv::VideoWriter("size_change.avi", cv::VideoWriter::fourcc('X','V','I','D'), 100,cv::Size(346,260),false );
  
 }
 AccumulatedEvents::~AccumulatedEvents()
@@ -42,7 +42,7 @@ void AccumulatedEvents::Events(const dvs_msgs::EventArray &msg)
     cv::Mat frame = EventsImage;
 
     
-    writer.write(frame);
+    //writer.write(frame);
     
     
     // cv::imshow("EventsImage", EventsImage);
