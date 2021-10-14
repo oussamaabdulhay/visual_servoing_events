@@ -6,12 +6,12 @@ AccumulatedEvents::AccumulatedEvents(ros::NodeHandle &t_nh):it_(nh_)
     nh_ = t_nh;
     sub = nh_.subscribe("/dvs/events", 10, &AccumulatedEvents::Events,this);
     //pub=it_.advertise("/EventsImage",1);
-    
+    writer = cv::VideoWriter("size_change.avi", cv::VideoWriter::fourcc('X','V','I','D'), 100,cv::Size(346,260),false );
  
 }
 AccumulatedEvents::~AccumulatedEvents()
 {
-
+writer.release();
 }
 
 void AccumulatedEvents::Events(const dvs_msgs::EventArray &msg)
@@ -38,7 +38,13 @@ void AccumulatedEvents::Events(const dvs_msgs::EventArray &msg)
     //img_bridge.toImageMsg(img_msg);
     //pub.publish(img_msg);
     keypoints_locater->findCenter(&EventsImage, packet_header);
-   
+    // cv::GaussianBlur( EventsImage, EventsImage, cv::Size( 9, 9 ), 0, 0 );
+    cv::Mat frame = EventsImage;
+
+    
+    writer.write(frame);
+    
+    
     // cv::imshow("EventsImage", EventsImage);
     // cv::waitKey(1);   
 }

@@ -23,6 +23,7 @@ class AccumulatedEvents
   int i = 0;
   std_msgs::Header packet_header;
  
+  cv::VideoWriter writer;
   const std::string OPENCV_WINDOW = "Image window";
 
   AccumulatedEvents(ros::NodeHandle &);
